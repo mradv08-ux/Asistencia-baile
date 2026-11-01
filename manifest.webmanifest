@@ -1,0 +1,17 @@
+{
+  "name": "Asistencia de Baile Urbano",
+  "short_name": "Asistencia",
+  "description": "Pasa lista en tus clases de baile urbano y mira la asistencia de cada niño.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6F1FB",
+  "theme_color": "#F6F1FB",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
