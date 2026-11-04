@@ -75,8 +75,8 @@ header.top::before{content:"";position:absolute;inset:8px -8px 14px;pointer-even
    repeating-linear-gradient(to right,transparent 0 35px,var(--line) 35px 36px) 0 0/100% 18px,
    repeating-linear-gradient(to right,transparent 0 17px,var(--line) 17px 18px,transparent 18px 36px) 0 18px/100% 18px;
   -webkit-mask:linear-gradient(to bottom,#000 55%,transparent);mask:linear-gradient(to bottom,#000 55%,transparent)}
-header.top > *{position:relative}
-header.top > div{min-width:0;padding-right:46px}
+header.top > .logo{position:relative}
+header.top > .titulo{position:relative;flex:1;min-width:0;padding-right:46px}
 .cinta{position:absolute;left:62px;bottom:4px;height:30px;width:min(250px,60%);color:var(--accent);pointer-events:none}
 .cinta .trazo{stroke-dasharray:400;stroke-dashoffset:400;animation:cinta 1s .2s ease-out forwards}
 .cinta .gota{transform-box:fill-box;transform-origin:top;transform:scaleY(0);animation:gotea 1.4s 1s ease-in forwards}
@@ -167,7 +167,7 @@ header p{margin:8px 0 0;color:var(--muted);font-size:12px;letter-spacing:.14em;t
 .fab{position:fixed;right:max(16px,calc(50% - 254px),env(safe-area-inset-right,0px));bottom:calc(84px + env(safe-area-inset-bottom,0px));border:0;border-radius:999px;background:var(--accent-strong);color:var(--bg);font-weight:600;padding:14px 20px;box-shadow:0 8px 22px rgba(80,55,120,.28);display:flex;gap:6px;align-items:center;z-index:5}
 
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
-nav.tabs .in{max-width:540px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+nav.tabs .in{max-width:540px;margin:0 auto;display:grid;grid-auto-flow:column;grid-auto-columns:1fr}
 nav.tabs button{border:0;background:transparent;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted)}
 nav.tabs button svg{width:24px;height:24px}
 nav.tabs button[aria-current="page"]{color:var(--accent-strong)}
@@ -200,6 +200,21 @@ nav.tabs button[aria-current="page"]{color:var(--accent-strong)}
 .backup p{margin:0 0 10px;font-size:14px;color:var(--muted)}
 .backup label.ghost{display:inline-block;cursor:pointer;color:var(--ink)}
 .backup .meta{margin:10px 0 0;font-size:13px}
+/* ---------- Entrar con código ---------- */
+.entrar{padding-block:8px 0}
+.entrar h2{font-family:var(--f-display);font-weight:400;font-size:40px;line-height:.95;letter-spacing:.02em;margin:0 0 8px}
+.entrar > p{color:var(--muted);margin:0 0 18px;max-width:36ch}
+.entrar .tarjeta{background:var(--surface);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+#codigo{font-size:22px;letter-spacing:.14em;text-transform:uppercase;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.error{color:var(--no);font-size:14px;font-weight:600;min-height:1.2em;margin:-4px 0 10px}
+.legal-link{text-align:center;margin-top:16px;font-size:14px}
+.legal-link a{color:var(--muted)}
+header p.estado{display:inline-block;margin-top:8px;font-size:12px;padding:3px 10px;border-radius:999px;background:var(--tarde-soft);color:var(--tarde);letter-spacing:0;text-transform:none}
+.codigo-grande{font-family:var(--f-display);font-size:clamp(26px,9vw,38px);white-space:nowrap;letter-spacing:.08em;text-align:center;background:var(--bg);border-radius:14px;padding:14px 8px;margin:6px 0 14px;user-select:all;font-variant-numeric:tabular-nums}
+.mensaje{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:12px;font-size:14px;resize:none}
+.pill{font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px;flex:none}
+.pill.on{background:var(--accent-soft);color:var(--si)}.pill.off{background:var(--no-soft);color:var(--no)}
+.resumen-profes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 14px}
 /* ---------- Firma de The Wild Side ---------- */
 .firma{display:flex;justify-content:center;margin:28px 0 56px}
 .firma span{display:inline-flex;align-items:baseline;gap:7px;padding:7px 14px;border:1.5px dashed var(--tws);border-radius:10px;transform:rotate(-2deg);color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
@@ -229,7 +244,7 @@ nav.tabs button[aria-current="page"]{color:var(--accent-strong)}
 <div class="app">
   <header class="top">
     <svg class="logo" aria-hidden="true"><use href="#mariposa"/></svg>
-    <div><h1>Asistencia<span>de baile urbano</span></h1><p id="subtitulo">Mis clases</p></div>
+    <div class="titulo"><h1>Asistencia<span>de baile urbano</span></h1><p id="subtitulo">Mis clases</p><p id="estado" class="estado" role="status" hidden></p></div>
     <div class="notas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <svg class="cinta" viewBox="0 0 250 30" preserveAspectRatio="none" aria-hidden="true"><path class="trazo" d="M3 8 C60 4, 140 12, 247 5" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><rect class="gota" x="58" y="8" width="3" height="14" rx="1.5" fill="currentColor"/><rect class="gota" x="132" y="9" width="3" height="20" rx="1.5" fill="currentColor"/><rect class="gota" x="201" y="7" width="3" height="10" rx="1.5" fill="currentColor"/></svg>
   </header>
@@ -241,6 +256,7 @@ nav.tabs button[aria-current="page"]{color:var(--accent-strong)}
   <button data-tab="lista" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17.5V11l3.5-1 2 2.5 3-3 2.5 2.5c3 .8 6 1.8 7.5 3.6.5.6.5 1.9 0 1.9H2.5z"/><path d="M2.5 20h19M10 13.5l1 1M12 12.5l1 1"/></svg>Pasar lista</button>
   <button data-tab="alumnos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15c0-5 3.2-8 8-8s7 3 7 8"/><path d="M3 15h18c0 1.6-1.5 2-3 2H6c-1.5 0-3-.4-3-2z"/><path d="M12 7V5"/></svg>Crew</button>
   <button data-tab="grupos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="13" rx="2.5"/><circle cx="7.5" cy="14" r="3"/><circle cx="16.5" cy="14" r="3"/><path d="M10.5 10h3M7 7l2-3h6l2 3"/></svg>Clases</button>
+  <button data-tab="profes" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg>Profes</button>
 </div></nav>
 
 <div id="sheetHost"></div>
@@ -281,55 +297,103 @@ function resumenAlumno(a){
   const total=si+tarde+no; return {si,tarde,no,total,pct: total?Math.round((si+tarde)/total*100):null, hist};
 }
 
-function loadLocal(){try{const r=localStorage.getItem(LS);if(r){const d=JSON.parse(r);Object.assign(state,d);return true}}catch(e){}return false}
-function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(state))}catch(e){}}
+/* ---------- Conexión con la nube ---------- */
+const NUBE = { url:"https://syqatbycpbbbjhfmocrh.supabase.co", clave:"sb_publishable_geNwe7EjJNQw81ydrDcdFQ_CqZkt6g2" };
+const K_CUENTA = "asistencia-baile-cuenta";
+let cuenta = null;      // {codigo, nombre, es_admin}
+let cola = {};          // "coleccion/id" -> datos (null = borrar), pendiente de subir
+let enviando = false, tEnvio = null, tReintento = null, ultimaSync = 0;
 
-const pend = new Map(); const chains = new Map();
+async function rpc(fn, args){
+  const r = await fetch(`${NUBE.url}/rest/v1/rpc/${fn}`, {method:"POST", headers:{"apikey":NUBE.clave,"Content-Type":"application/json"}, body:JSON.stringify(args)});
+  if(!r.ok){ let msg=""; try{ msg=(await r.json()).message||"" }catch(e){} const err=new Error(msg||("http "+r.status)); err.servidor=true; err.msg=msg; throw err; }
+  const t = await r.text(); return t ? JSON.parse(t) : null;
+}
+function formatoCodigo(c){ return (c||"").match(/.{1,4}/g)?.join("-") || "" }
+function limpiarCodigo(c){ return (c||"").toUpperCase().replace(/[^A-Z0-9]/g,"") }
+
+const kDatos = () => "asistencia-baile-datos-"+cuenta.codigo;
+const kCola  = () => "asistencia-baile-cola-"+cuenta.codigo;
+function guardarCuenta(){ try{ cuenta?localStorage.setItem(K_CUENTA,JSON.stringify(cuenta)):localStorage.removeItem(K_CUENTA) }catch(e){} }
+function saveLocal(){ if(!cuenta) return; try{ localStorage.setItem(kDatos(),JSON.stringify(state)); localStorage.setItem(kCola(),JSON.stringify(cola)) }catch(e){} }
+function loadLocal(){
+  state.grupos={}; state.alumnos={}; state.asistencia={}; cola={};
+  try{ const d=JSON.parse(localStorage.getItem(kDatos())||"null"); if(d){ state.grupos=d.grupos||{}; state.alumnos=d.alumnos||{}; state.asistencia=d.asistencia||{} }
+       cola=JSON.parse(localStorage.getItem(kCola())||"{}")||{} }catch(e){}
+}
+
+function ponEstado(est){
+  const el=$("#estado"); if(!el) return;
+  const textos={pendiente:"Guardando…", "sin-red":"Sin conexión · se guardará al volver", error:"No se ha podido guardar · lo reintento solo"};
+  el.hidden=!textos[est]; el.textContent=textos[est]||"";
+}
+
+/* Guarda en el móvil al momento y sube a la nube en segundo plano */
 function guardar(col,id,data){
-  if(ui.readonly){toast("Solo puedes ver los datos, no cambiarlos.");return}
   if(data===null) delete state[col][id]; else state[col][id]=data;
-  render();
-  if(!db){saveLocal();return}
-  const key=col+"/"+id;
-  clearTimeout(pend.get(key)?.t);
-  const t=setTimeout(()=>{
-    pend.delete(key);
-    const val=state[col][id];
-    const prev=chains.get(key)||Promise.resolve();
-    const p=prev.then(()=> val===undefined ? db.collection(col).doc(id).delete() : db.collection(col).doc(id).set(val))
-      .catch(e=>{ if(e&&e.code==="invalid_argument"){ui.readonly=true;toast("Esta copia es solo de lectura.")} else if(e&&e.code==="quota_exceeded"){toast("No queda espacio para más datos.")} else toast("No se ha podido guardar. Revisa la conexión.") });
-    chains.set(key,p);
-  }, col==="asistencia"?500:0);
-  pend.set(key,{t});
+  cola[col+"/"+id]=data;
+  saveLocal(); render(); programarEnvio(col==="asistencia"?600:0);
 }
-
-function suscribir(col){
-  db.collection(col).onSnapshot(snap=>{
-    const m={}; for(const d of snap.docs) m[d.id]=d.data();
-    for(const k of pend.keys()){const [c,id]=k.split("/"); if(c===col){ if(state[col][id]===undefined) delete m[id]; else m[id]=state[col][id]; }}
-    state[col]=m; cargados.add(col);
-    if(!snap.metadata.fromCache) definitivos.add(col);
-    if(cargados.size===3){ready=true;clearTimeout(timer)}
-    render();
-  },e=>{ toast("No se pueden cargar los datos ahora mismo."); ready=true; render(); });
-}
-const cargados=new Set(), definitivos=new Set(); let timer;
-
-/* ---------- ejemplo local (solo si no hay almacén) ---------- */
-function ejemplosLocales(){
-  const g1="baby",g2="infantil";
-  state.grupos={[g1]:{nombre:"Hip hop kids",dias:[1,3],hora:"17:30",orden:1,ejemplo:true},[g2]:{nombre:"Breaking junior",dias:[2,4],hora:"18:30",orden:2,ejemplo:true}};
-  const nombres=[["Lucía",g1],["Martina",g1],["Hugo",g1],["Alba",g1],["Sofía",g2],["Valeria",g2],["Daniela",g2],["Carla",g2]];
-  state.alumnos={}; nombres.forEach(([n,g],i)=>state.alumnos["a"+i]={nombre:n,grupoId:g,alta:"2026-09-01",ejemplo:true});
-  state.asistencia={};
-  const pat=["si","si","si","tarde","si","no","si","si","si","si","no","si"];
-  for(let d=1; d<=24; d++){
-    const f=addDias(hoyISO(),-d), dw=parseISO(f).getDay();
-    for(const [gid,g] of Object.entries(state.grupos)){ if(!g.dias.includes(dw)) continue;
-      const marcas={}; Object.entries(state.alumnos).filter(([,a])=>a.grupoId===gid).forEach(([id],i)=>marcas[id]=pat[(d*3+i*5)%pat.length]);
-      state.asistencia[gid+"_"+f]={grupoId:gid,fecha:f,marcas,ejemplo:true};
-    }
+function programarEnvio(ms){ clearTimeout(tEnvio); tEnvio=setTimeout(enviar,ms) }
+async function enviar(){
+  if(enviando||!cuenta) return;
+  const claves=Object.keys(cola); if(!claves.length){ ponEstado("ok"); return }
+  enviando=true; ponEstado("pendiente");
+  const lote=claves.slice(0,400).map(k=>{const i=k.indexOf("/"); return {c:k.slice(0,i), id:k.slice(i+1), d:cola[k]===undefined?null:cola[k]}});
+  const enviados=lote.map(x=>[x.c+"/"+x.id, cola[x.c+"/"+x.id]]);
+  try{
+    await rpc("guardar",{p_codigo:cuenta.codigo,p_cambios:lote});
+    for(const [k,v] of enviados) if(cola[k]===v) delete cola[k];
+    saveLocal(); enviando=false;
+    if(Object.keys(cola).length) return enviar();
+    ponEstado("ok");
+  }catch(e){
+    enviando=false;
+    if(e.servidor && /codigo_no_valido/.test(e.msg)) return codigoRevocado();
+    ponEstado(e.servidor?"error":"sin-red");
+    clearTimeout(tReintento); tReintento=setTimeout(enviar,20000);
   }
+}
+
+/* Trae lo último de la nube (por si se usó desde otro móvil) */
+async function sincronizar(){
+  if(!cuenta) return null;
+  ultimaSync=Date.now();
+  try{
+    const r=await rpc("cargar",{p_codigo:cuenta.codigo});
+    if(!r){ codigoRevocado(); return null }
+    cuenta.nombre=r.perfil.nombre; cuenta.es_admin=r.perfil.es_admin; guardarCuenta();
+    const nuevo={grupos:{},alumnos:{},asistencia:{}};
+    for(const x of r.registros) if(nuevo[x.c]) nuevo[x.c][x.id]=x.d;
+    for(const [k,v] of Object.entries(cola)){ const i=k.indexOf("/"), c=k.slice(0,i), id=k.slice(i+1); if(!nuevo[c]) continue; if(v===null) delete nuevo[c][id]; else nuevo[c][id]=v }
+    Object.assign(state,nuevo); saveLocal(); render(); enviar();
+    return r.registros.length;
+  }catch(e){ ponEstado(e.servidor?"error":"sin-red"); return null }
+}
+
+/* La primera vez, sube lo que ya había en este móvil de la versión sin códigos */
+function traerDatosAntiguos(){
+  try{
+    if(localStorage.getItem(LS+"-migrado")) return 0;
+    const viejo=JSON.parse(localStorage.getItem(LS)||"null"); if(!viejo) return 0;
+    let n=0;
+    for(const c of ["grupos","alumnos","asistencia"]) for(const [id,v] of Object.entries(viejo[c]||{})){
+      if(!v||v.ejemplo) continue; state[c][id]=v; cola[c+"/"+id]=v; n++;
+    }
+    localStorage.setItem(LS+"-migrado",cuenta.codigo);
+    if(n){ saveLocal(); enviar() }
+    return n;
+  }catch(e){ return 0 }
+}
+
+function codigoRevocado(){
+  salir(true);
+  toast("Tu código ya no está activo. Pide uno nuevo a The Wild Side.");
+}
+function salir(borrarTodo){
+  if(cuenta && borrarTodo){ try{ localStorage.removeItem(kDatos()); localStorage.removeItem(kCola()) }catch(e){} }
+  cuenta=null; guardarCuenta(); cola={}; state.grupos={}; state.alumnos={}; state.asistencia={};
+  ui.tab="lista"; ui.grupo=null; ui.profes=null; ponEstado("ok"); cerrarHoja(); render();
 }
 
 /* ---------- vistas ---------- */
@@ -397,12 +461,63 @@ function vistaGrupos(){
     html+=`<li class="row"><button class="rowbtn" data-act="editar-grupo" data-id="${g.id}"><div class="avatar">${BUT.replace('aria-hidden','style="width:24px;height:24px" aria-hidden')}</div>
     <div class="who"><div class="name">${esc(g.nombre)}</div><div class="meta">${dias||"Sin días"}${g.hora?" · "+esc(g.hora):""}</div></div><div class="pct">${n}<span style="font-weight:400;color:var(--muted);font-size:13px"> niños</span></div></button></li>`}
   html+="</ul>";
-  html+=`<div class="section-title">Copia de seguridad</div>
-  <div class="backup"><p>Todo se guarda en este móvil. Descarga una copia de vez en cuando por si cambias de teléfono o borras el navegador.</p>
-  <div class="actions"><button class="ghost" data-act="exportar">Descargar copia</button><label class="ghost" for="importar">Recuperar copia</label><input id="importar" type="file" accept="application/json,.json" hidden></div>
-  ${ui.ultimaCopia?`<p class="meta">Última copia: ${esc(fechaCorta(ui.ultimaCopia))}</p>`:""}</div>`;
+  html+=`<div class="section-title">Tu cuenta</div>
+  <div class="backup"><p><b style="color:var(--ink)">${esc(cuenta.nombre)}</b> · código <b style="color:var(--ink);letter-spacing:.06em">${esc(formatoCodigo(cuenta.codigo))}</b></p>
+  <p>Tus clases se guardan en la nube con este código. Si cambias de móvil, entra con el mismo y lo tendrás todo.</p>
+  <div class="actions"><button class="ghost" data-act="exportar">Descargar copia</button><button class="ghost" data-act="salir">Cerrar sesión</button></div>
+  <p class="meta"><a href="legal.html" style="color:var(--muted)">Privacidad y datos</a></p></div>`;
   return html+fab("Nueva clase","nuevo-grupo");
 }
+function vistaEntrar(){
+  return `<div class="entrar"><h2>Entra con tu código</h2>
+  <p>Te lo da The Wild Side. Solo tienes que ponerlo una vez en cada móvil y tus clases se guardan en la nube.</p>
+  <form id="fEntrar" class="tarjeta">
+    <div class="field"><label for="codigo">Tu código</label><input id="codigo" required maxlength="20" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX"></div>
+    <p class="error" id="errEntrar" role="alert"></p>
+    <button class="primary" type="submit" style="width:100%">Entrar</button>
+  </form>
+  <p class="legal-link"><a href="legal.html">Privacidad y datos</a></p></div>`;
+}
+
+function vistaProfes(){
+  if(!cuenta||!cuenta.es_admin) return "";
+  if(!ui.profes){ cargarProfes(); return `<div class="loading">${BUT}<p>Cargando profes…</p></div>` }
+  if(ui.profes.error) return vacio("No se han podido cargar","Revisa la conexión y vuelve a intentarlo.","Reintentar","recargar-profes");
+  const ps=ui.profes.lista.filter(p=>!p.es_admin);
+  const activas=ps.filter(p=>p.activo).length, ninos=ps.reduce((n,p)=>n+(+p.alumnos||0),0), clases=ps.reduce((n,p)=>n+(+p.clases||0),0);
+  let html=`<div class="resumen-profes"><div class="stat"><b>${activas}</b><span>profes activas</span></div><div class="stat"><b>${ninos}</b><span>niños</span></div><div class="stat"><b>${clases}</b><span>listas pasadas</span></div></div>`;
+  if(!ps.length) return html+vacio("Aún no hay profes","Crea un código para cada profe y mándaselo con el enlace de la app.",null)+fab("Nueva profe","nueva-profe");
+  html+=`<ul class="list">`;
+  for(const p of ps){
+    const meta = p.ultima_clase ? `${p.alumnos} niños · ${p.grupos} ${+p.grupos===1?"clase":"clases"} · pasó lista el ${esc(fechaCorta(p.ultima_clase))}` : (p.ultimo_acceso ? `${p.alumnos} niños · aún no ha pasado lista` : "Todavía no ha entrado");
+    html+=`<li class="row"><button class="rowbtn" data-act="ver-profe" data-id="${esc(p.id)}"><div class="avatar">${esc(iniciales(p.nombre))}</div>
+    <div class="who"><div class="name">${esc(p.nombre)}</div><div class="meta">${meta}</div></div><span class="pill ${p.activo?"on":"off"}">${p.activo?"Activa":"Desactivada"}</span></button></li>`;
+  }
+  return html+"</ul>"+fab("Nueva profe","nueva-profe");
+}
+async function cargarProfes(){
+  if(ui.cargandoProfes) return; ui.cargandoProfes=true;
+  try{ ui.profes={lista:await rpc("admin_profes",{p_codigo:cuenta.codigo})||[]} }
+  catch(e){ ui.profes={error:true} }
+  ui.cargandoProfes=false; render();
+}
+function textoInvitacion(p){ return `¡Hola ${p.nombre}! Ya puedes usar la app de asistencia de baile:\n${location.origin+location.pathname}\n\nTu código: ${formatoCodigo(p.codigo)}\n\nÁbrela en el móvil, pon el código y añádela a la pantalla de inicio.` }
+function hojaProfe(id){
+  const p=ui.profes.lista.find(x=>x.id===id); if(!p) return "";
+  return `<h2>${esc(p.nombre)}</h2><p class="sub">${p.ultimo_acceso?"Último uso: "+esc(new Date(p.ultimo_acceso).toLocaleDateString("es-ES",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})):"Todavía no ha entrado"}</p>
+  <div class="stats"><div class="stat"><b>${p.grupos}</b><span>clases</span></div><div class="stat"><b>${p.alumnos}</b><span>niños</span></div><div class="stat"><b>${p.clases}</b><span>listas</span></div></div>
+  <div class="section-title" style="margin-top:0">Su código</div><div class="codigo-grande">${esc(formatoCodigo(p.codigo))}</div>
+  <textarea class="mensaje" id="msgInv" rows="6" readonly>${esc(textoInvitacion(p))}</textarea>
+  <div class="actions"><button class="primary" data-act="copiar-inv">Copiar mensaje</button>
+  <button class="${p.activo?"danger":"ghost"}" data-act="activar-profe" data-id="${esc(p.id)}" data-activo="${p.activo?"0":"1"}">${p.activo?"Desactivar":"Volver a activar"}</button></div>
+  <p class="sub" style="margin-top:12px">Al desactivarla deja de poder entrar, pero sus datos se guardan por si la vuelves a activar.</p>`;
+}
+function hojaNuevaProfe(){
+  return `<h2>Nueva profe</h2><p class="sub">Se crea un código solo para ella. Lo que haga en la app solo lo verá ella.</p>
+  <form id="fProfe"><div class="field"><label for="pNombre">Nombre</label><input id="pNombre" required maxlength="60" autocomplete="off" placeholder="Nombre de la profe"></div>
+  <div class="actions"><button class="primary" type="submit">Crear código</button></div></form>`;
+}
+
 function fab(t,act){return `<button class="fab" data-act="${act}"><span aria-hidden="true" style="font-size:20px;line-height:1">+</span>${t}</button>`}
 
 /* ---------- hojas ---------- */
@@ -415,7 +530,7 @@ function hojaAlumno(id){
     <div class="field"><label for="aNombre">Nombre</label><input id="aNombre" required maxlength="60" value="${esc(a.nombre)}" autocomplete="off"></div>
     <div class="field"><label for="aGrupo">Clase</label><select id="aGrupo">${grupos().map(g=>`<option value="${g.id}" ${g.id===a.grupoId?"selected":""}>${esc(g.nombre)}</option>`).join("")}</select></div>
     <div class="field"><label for="aContacto">Contacto de la familia</label><input id="aContacto" maxlength="80" placeholder="Nombre y teléfono" value="${esc(a.contacto)}"></div>
-    <div class="field"><label for="aNota">Notas</label><textarea id="aNota" rows="2" maxlength="300" placeholder="Alergias, recogida, lo que necesites">${esc(a.nota)}</textarea></div>
+    <div class="field"><label for="aNota">Notas</label><textarea id="aNota" rows="2" maxlength="300" placeholder="Quién recoge, autorizaciones, lo que necesites">${esc(a.nota)}</textarea></div>
     <div class="actions"><button class="primary" type="submit">${id?"Guardar cambios":"Añadir bailarín"}</button>${id?`<button type="button" class="danger" data-act="quitar-alumno" data-id="${id}">Quitar</button>`:""}</div>
   </form>
   ${r&&r.hist.length?`<div class="section-title">Sesión a sesión</div><ul class="hist">${r.hist.map(h=>`<li><span>${esc(fechaCorta(h.fecha))}</span><span class="tag ${h.m}">${h.m==="si"?"Vino":h.m==="tarde"?"Tarde":"Faltó"}</span></li>`).join("")}</ul>`:""}`;
@@ -443,17 +558,21 @@ function cerrarHoja(){ui.sheet=null;$("#sheetHost").innerHTML=""}
 function render(){
   if(!ready) return;
   const main=$("#main");
-  const vistas={lista:vistaLista,alumnos:vistaAlumnos,grupos:vistaGrupos};
+  const nav=$("nav.tabs"); nav.hidden=!cuenta;
+  if(!cuenta){ main.innerHTML=vistaEntrar(); $("#subtitulo").textContent="Pasa lista en tus clases"; return }
+  nav.querySelector('[data-tab="profes"]').hidden=!cuenta.es_admin;
+  if(ui.tab==="profes"&&!cuenta.es_admin) ui.tab="lista";
+  const vistas={lista:vistaLista,alumnos:vistaAlumnos,grupos:vistaGrupos,profes:vistaProfes};
   const activo=document.activeElement&&document.activeElement.id; const pos=activo==="buscar"?document.activeElement.selectionStart:null;
   main.innerHTML=bannerEjemplo()+vistas[ui.tab]();
   if(activo==="buscar"){const b=$("#buscar");b.focus();try{b.setSelectionRange(pos,pos)}catch(e){}}
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-current",b.dataset.tab===ui.tab?"page":"false"));
-  const total=Object.keys(state.alumnos).length; $("#subtitulo").textContent=`${grupos().length} clases · ${total} en la crew`;
+  const total=Object.keys(state.alumnos).length; $("#subtitulo").textContent=`${cuenta.nombre} · ${grupos().length} ${grupos().length===1?"clase":"clases"} · ${total} en la crew`;
 }
 
 /* ---------- eventos ---------- */
 document.addEventListener("click",e=>{
-  const tab=e.target.closest("nav.tabs button"); if(tab){ui.tab=tab.dataset.tab;cerrarHoja();render();window.scrollTo(0,0);return}
+  const tab=e.target.closest("nav.tabs button"); if(tab){ui.tab=tab.dataset.tab; if(ui.tab==="profes") ui.profes=null; cerrarHoja();render();window.scrollTo(0,0);return}
   const chip=e.target.closest("[data-grupo]"); if(chip){ if(ui.tab==="lista") ui.grupo=chip.dataset.grupo; else ui.filtro=chip.dataset.grupo; render(); return}
   const marca=e.target.closest("[data-marca]");
   if(marca){const id=marca.closest(".row").dataset.id; const k=ui.grupo+"_"+ui.fecha; const s=state.asistencia[k]?JSON.parse(JSON.stringify(state.asistencia[k])):{grupoId:ui.grupo,fecha:ui.fecha,marcas:{}};
@@ -480,10 +599,25 @@ document.addEventListener("click",e=>{
   if(act==="exportar"){ const datos=JSON.stringify({app:"asistencia-baile",version:1,fecha:new Date().toISOString(),grupos:state.grupos,alumnos:state.alumnos,asistencia:state.asistencia},null,1);
     const url=URL.createObjectURL(new Blob([datos],{type:"application/json"})); const a=document.createElement("a"); a.href=url; a.download=`asistencia-baile-${hoyISO()}.json`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),2000);
     ui.ultimaCopia=hoyISO(); try{localStorage.setItem(LS+"-copia",ui.ultimaCopia)}catch(err){} toast("Copia descargada"); render(); return}
+  if(act==="salir"){ const n=Object.keys(cola).length;
+    if(el.dataset.ok){ salir(true); toast("Sesión cerrada") } else { el.dataset.ok="1"; el.textContent=n?`Hay ${n} cambios sin subir. ¿Salir igual?`:"¿Seguro? Pulsa otra vez" } return}
+  if(act==="recargar-profes"){ ui.profes=null; render(); return}
+  if(act==="nueva-profe"){ abrirHoja(hojaNuevaProfe()); return}
+  if(act==="ver-profe"){ abrirHoja(hojaProfe(el.dataset.id)); return}
+  if(act==="copiar-inv"){ const t=$("#msgInv"); const ok=()=>toast("Mensaje copiado. Pégalo en WhatsApp.");
+    try{ navigator.clipboard.writeText(t.value).then(ok,()=>{t.select();document.execCommand("copy");ok()}) }catch(err){ t.select(); try{document.execCommand("copy");ok()}catch(e2){toast("Mantén pulsado el texto para copiarlo.")} } return}
+  if(act==="activar-profe"){ const id=el.dataset.id, activo=el.dataset.activo==="1";
+    if(!activo && !el.dataset.ok){ el.dataset.ok="1"; el.textContent="¿Seguro? Pulsa otra vez"; return }
+    el.disabled=true;
+    rpc("admin_activar",{p_codigo:cuenta.codigo,p_id:id,p_activo:activo}).then(()=>{ const p=ui.profes.lista.find(x=>x.id===id); if(p) p.activo=activo; abrirHoja(hojaProfe(id)); render(); toast(activo?"Profe activada":"Profe desactivada") },
+      ()=>{ el.disabled=false; toast("No se ha podido cambiar. Revisa la conexión.") });
+    return}
   if(act==="borrar-ejemplos"){ for(const c of ["asistencia","alumnos","grupos"]) for(const [id,v] of Object.entries(state[c])) if(v.ejemplo) guardar(c,id,null); ui.grupo=null; toast("Ejemplos borrados. Ya puedes crear tus clases."); return}
 });
 document.addEventListener("submit",e=>{
   e.preventDefault();
+  if(e.target.id==="fEntrar") return entrarConCodigo(e.target);
+  if(e.target.id==="fProfe") return crearProfe(e.target);
   if(e.target.id==="fAlumno"){const id=e.target.dataset.id||uid(); const prev=state.alumnos[id]||{alta:hoyISO()};
     const nombre=$("#aNombre").value.trim(); if(!nombre) return;
     const a={...prev,nombre,grupoId:$("#aGrupo").value,contacto:$("#aContacto").value.trim(),nota:$("#aNota").value.trim()}; delete a.ejemplo;
@@ -500,12 +634,43 @@ document.addEventListener("change",e=>{ if(e.target.id==="fecha"&&e.target.value
       state.grupos=d.grupos; state.alumnos=d.alumnos||{}; state.asistencia=d.asistencia||{}; saveLocal(); ui.grupo=null; render(); toast("Copia recuperada"); }catch(err){ toast("Ese archivo no es una copia de esta app.") } }; r.readAsText(e.target.files[0]); e.target.value=""; } });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&ui.sheet) cerrarHoja() });
 
+async function entrarConCodigo(form){
+  const btn=form.querySelector("button"), err=$("#errEntrar"), codigo=limpiarCodigo($("#codigo").value);
+  if(codigo.length<8){ err.textContent="El código tiene 12 letras y números."; return }
+  btn.disabled=true; btn.textContent="Comprobando…"; err.textContent="";
+  try{
+    const p=await rpc("entrar",{p_codigo:codigo});
+    if(!p){ err.textContent="Ese código no existe o está desactivado. Revísalo o pide uno nuevo."; btn.disabled=false; btn.textContent="Entrar"; return }
+    cuenta={codigo,nombre:p.nombre,es_admin:p.es_admin}; guardarCuenta(); loadLocal();
+    ui.tab="lista"; ui.grupo=null; render();
+    const n=await sincronizar();
+    const subidos = n===0 ? traerDatosAntiguos() : 0;
+    render();
+    toast(subidos?`¡Hola, ${p.nombre}! He subido a tu cuenta lo que ya tenías en este móvil.`:`¡Hola, ${p.nombre}!`);
+  }catch(e){ err.textContent="No hay conexión. Revisa la cobertura y vuelve a intentarlo."; btn.disabled=false; btn.textContent="Entrar" }
+}
+async function crearProfe(form){
+  const nombre=$("#pNombre").value.trim(); if(!nombre) return;
+  const btn=form.querySelector("button"); btn.disabled=true; btn.textContent="Creando…";
+  try{
+    const r=await rpc("admin_crear_profe",{p_codigo:cuenta.codigo,p_nombre:nombre});
+    ui.profes.lista.push({id:"nueva-"+r.codigo,nombre,codigo:r.codigo,activo:true,es_admin:false,grupos:0,alumnos:0,clases:0,ultimo_acceso:null,ultima_clase:null});
+    abrirHoja(hojaProfe("nueva-"+r.codigo)); render(); cargarProfesTrasCrear(r.codigo);
+  }catch(e){ btn.disabled=false; btn.textContent="Crear código"; toast("No se ha podido crear. Revisa la conexión.") }
+}
+async function cargarProfesTrasCrear(codigo){
+  try{ const l=await rpc("admin_profes",{p_codigo:cuenta.codigo}); if(l){ ui.profes={lista:l}; render();
+    const p=l.find(x=>x.codigo===codigo); const h=$("#sheetHost .sheet"); if(p&&h&&$("#msgInv")) abrirHoja(hojaProfe(p.id)); } }catch(e){}
+}
+addEventListener("online",()=>{ enviar(); sincronizar() });
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible"&&cuenta&&Date.now()-ultimaSync>30000) sincronizar() });
+
 /* ---------- arranque ---------- */
 function iniciar(){
-  if(!loadLocal()){ ejemplosLocales(); saveLocal(); }
-  try{ ui.ultimaCopia=localStorage.getItem(LS+"-copia") }catch(e){}
+  try{ cuenta=JSON.parse(localStorage.getItem(K_CUENTA)||"null") }catch(e){ cuenta=null }
   try{ navigator.storage && navigator.storage.persist && navigator.storage.persist() }catch(e){}
-  ready=true; render();
+  if(cuenta&&cuenta.codigo){ loadLocal(); ready=true; render(); sincronizar() }
+  else { cuenta=null; ready=true; render() }
 }
 iniciar();
 })();

@@ -1,9 +1,10 @@
 // Sube VERSION en cada publicación para que los móviles cojan la versión nueva.
-const VERSION = "asistencia-v2";
+const VERSION = "asistencia-v3";
 const ESQUELETO = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
+  "./legal.html",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png"
