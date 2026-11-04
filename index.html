@@ -68,7 +68,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:2px solid var(--accent-strong);outline-offset:2px;border-radius:10px}
 
-.app{max-width:540px;margin:0 auto;min-height:100%;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 calc(96px + env(safe-area-inset-bottom,0px))}
+.app{position:relative;z-index:1;max-width:540px;margin:0 auto;min-height:100%;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 calc(96px + env(safe-area-inset-bottom,0px))}
 
 header.top{position:relative;display:flex;align-items:center;gap:12px;padding-block:26px 30px;margin-bottom:6px}
 header.top::before{content:"";position:absolute;inset:8px -8px 14px;pointer-events:none;opacity:.7;border-radius:14px;
@@ -91,6 +91,7 @@ header.top > .titulo{position:relative;flex:1;min-width:0;padding-right:46px}
 @keyframes eq{0%{height:20%}50%{height:100%}100%{height:45%}}
 .logo{width:52px;height:52px;flex:none;color:var(--accent);background:var(--surface);border-radius:50%;padding:6px;box-shadow:var(--shadow)}
 .logo .w2{color:var(--accent-strong)}
+header h1 b{font-weight:400}
 header h1{font-family:var(--f-display);font-weight:400;font-size:38px;line-height:.9;margin:0;letter-spacing:.02em;text-wrap:balance;text-shadow:2px 2px 0 var(--accent-soft)}
 header h1 span{display:block;font-family:var(--f-tag);font-size:19px;letter-spacing:0;color:var(--accent-strong);text-shadow:none;transform:rotate(-3deg);margin:2px 0 0 4px}
 header p{margin:8px 0 0;color:var(--muted);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
@@ -202,6 +203,13 @@ nav.tabs button[aria-current="page"]{color:var(--accent-strong)}
 .backup p{margin:0 0 10px;font-size:14px;color:var(--muted)}
 .backup label.ghost{display:inline-block;cursor:pointer;color:var(--ink)}
 .backup .meta{margin:10px 0 0;font-size:13px}
+/* ---------- Diseño «mariposa»: nombre arriba y mariposa gigante de fondo ---------- */
+.fondo-mariposa{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.fondo-mariposa svg{position:absolute;width:min(165vw,1150px);height:auto;aspect-ratio:1;right:-58%;top:14%;transform:rotate(-16deg);color:var(--accent);opacity:.2}
+.fondo-mariposa .w2{color:var(--accent-strong)}
+@media (min-width:700px){.fondo-mariposa svg{right:auto;left:50%;top:6%;margin-left:-80px}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fondo-mariposa svg{opacity:.16}}
+:root[data-theme="dark"] .fondo-mariposa svg{opacity:.16}
 /* ---------- Colores ---------- */
 .btn-tema{position:absolute;top:14px;right:0;width:42px;height:42px;border-radius:50%;border:0;background:var(--surface);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--accent-strong);padding:0}
 .btn-tema svg{width:22px;height:22px}
@@ -251,10 +259,11 @@ header p.estado{display:inline-block;margin-top:8px;font-size:12px;padding:3px 1
   <symbol id="silencio" viewBox="0 0 10 18"><path d="M3.5 3l4 4.2-3 3.2 3.2 4c-2-1.2-4.2-.6-3.4 2.6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
+<div class="fondo-mariposa" hidden aria-hidden="true"><svg viewBox="0 0 48 48"><use href="#mariposa"/></svg></div>
 <div class="app">
   <header class="top">
     <svg class="logo" aria-hidden="true"><use href="#mariposa"/></svg>
-    <div class="titulo"><h1>Asistencia<span>de baile urbano</span></h1><p id="subtitulo">Mis clases</p><p id="estado" class="estado" role="status" hidden></p></div>
+    <div class="titulo"><h1><b id="titulo">Asistencia</b><span id="lema">de baile urbano</span></h1><p id="subtitulo">Mis clases</p><p id="estado" class="estado" role="status" hidden></p></div>
     <button class="btn-tema" data-act="temas" aria-label="Cambiar colores" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-1 2-2 0-1.3-1-1.6-1-2.8 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4C21 6.4 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2" fill="currentColor"/><circle cx="10" cy="7" r="1.2" fill="currentColor"/><circle cx="15" cy="7.2" r="1.2" fill="currentColor"/></svg></button>
     <div class="notas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <svg class="cinta" viewBox="0 0 250 30" preserveAspectRatio="none" aria-hidden="true"><path class="trazo" d="M3 8 C60 4, 140 12, 247 5" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><rect class="gota" x="58" y="8" width="3" height="14" rx="1.5" fill="currentColor"/><rect class="gota" x="132" y="9" width="3" height="20" rx="1.5" fill="currentColor"/><rect class="gota" x="201" y="7" width="3" height="10" rx="1.5" fill="currentColor"/></svg>
@@ -393,7 +402,7 @@ async function sincronizar(){
   try{
     const r=await rpc("cargar",{p_codigo:cuenta.codigo});
     if(!r){ codigoRevocado(); return null }
-    cuenta.nombre=r.perfil.nombre; cuenta.es_admin=r.perfil.es_admin; guardarCuenta();
+    cuenta.nombre=r.perfil.nombre; cuenta.es_admin=r.perfil.es_admin; cuenta.diseno=r.perfil.diseno||null; guardarCuenta();
     const nuevo={grupos:{},alumnos:{},asistencia:{},ajustes:{}};
     for(const x of r.registros) if(nuevo[x.c]) nuevo[x.c][x.id]=x.d;
     for(const [k,v] of Object.entries(cola)){ const i=k.indexOf("/"), c=k.slice(0,i), id=k.slice(i+1); if(!nuevo[c]) continue; if(v===null) delete nuevo[c][id]; else nuevo[c][id]=v }
@@ -479,7 +488,7 @@ function vistaAlumnos(){
   for(const a of al){const r=resumenAlumno(a); const g=state.grupos[a.grupoId];
     const dots=r.hist.slice(0,6).reverse().map(h=>`<span class="dot ${h.m}"></span>`).join("");
     html+=`<li class="row"><button class="rowbtn" data-act="ver-alumno" data-id="${a.id}"><div class="avatar">${esc(iniciales(a.nombre))}</div>
-    <div class="who"><div class="name">${esc(a.nombre)}</div><div class="meta">${g?esc(g.nombre):"Sin grupo"} · ${r.total} clases</div></div>
+    <div class="who"><div class="name">${esc(a.nombre)}</div><div class="meta">${g?esc(g.nombre):"Sin grupo"} · ${r.total} ${r.total===1?"clase":"clases"}</div></div>
     <div class="dots" aria-hidden="true">${dots}</div><div class="pct" aria-label="Asistencia">${r.pct===null?"—":r.pct+"%"}</div></button></li>`}
   return html+"</ul>"+fab("Añadir","nuevo-alumno");
 }
@@ -541,7 +550,9 @@ function hojaProfe(id){
   <textarea class="mensaje" id="msgInv" rows="6" readonly>${esc(textoInvitacion(p))}</textarea>
   <div class="actions"><button class="primary" data-act="copiar-inv">Copiar mensaje</button>
   <button class="${p.activo?"danger":"ghost"}" data-act="activar-profe" data-id="${esc(p.id)}" data-activo="${p.activo?"0":"1"}">${p.activo?"Desactivar":"Volver a activar"}</button></div>
-  <p class="sub" style="margin-top:12px">Al desactivarla deja de poder entrar, pero sus datos se guardan por si la vuelves a activar.</p>`;
+  <p class="sub" style="margin-top:12px">Al desactivarla deja de poder entrar, pero sus datos se guardan por si la vuelves a activar.</p>
+  <div class="section-title">Diseño</div>
+  <div class="seg" role="group" aria-label="Diseño" style="display:flex">${[["","Estándar"],["mariposa","Su nombre y mariposa"]].map(([v,t])=>`<button style="flex:1" data-act="diseno-profe" data-id="${esc(p.id)}" data-diseno="${v}" aria-pressed="${(p.diseno||"")===v}" class="${(p.diseno||"")===v?"s-si":""}">${t}</button>`).join("")}</div>`;
 }
 function hojaNuevaProfe(){
   return `<h2>Nueva profe</h2><p class="sub">Se crea un código solo para ella. Lo que haga en la app solo lo verá ella.</p>
@@ -590,6 +601,10 @@ function render(){
   if(!ready) return;
   const main=$("#main");
   aplicarTema(); $(".btn-tema").hidden=!cuenta;
+  const mariposa=!!(cuenta&&cuenta.diseno==="mariposa");
+  $(".fondo-mariposa").hidden=!mariposa;
+  $("#titulo").textContent=mariposa?cuenta.nombre:"Asistencia";
+  $("#lema").textContent=mariposa?"asistencia · baile urbano":"de baile urbano";
   const nav=$("nav.tabs"); nav.hidden=!cuenta;
   if(!cuenta){ main.innerHTML=vistaEntrar(); $("#subtitulo").textContent="Pasa lista en tus clases"; return }
   nav.querySelector('[data-tab="profes"]').hidden=!cuenta.es_admin;
@@ -599,7 +614,7 @@ function render(){
   main.innerHTML=bannerEjemplo()+vistas[ui.tab]();
   if(activo==="buscar"){const b=$("#buscar");b.focus();try{b.setSelectionRange(pos,pos)}catch(e){}}
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-current",b.dataset.tab===ui.tab?"page":"false"));
-  const total=Object.keys(state.alumnos).length; $("#subtitulo").textContent=`${cuenta.nombre} · ${grupos().length} ${grupos().length===1?"clase":"clases"} · ${total} en la crew`;
+  const total=Object.keys(state.alumnos).length; $("#subtitulo").textContent=`${mariposa?"":cuenta.nombre+" · "}${grupos().length} ${grupos().length===1?"clase":"clases"} · ${total} en la crew`;
 }
 
 /* ---------- eventos ---------- */
@@ -641,6 +656,10 @@ document.addEventListener("click",e=>{
   if(act==="ver-profe"){ abrirHoja(hojaProfe(el.dataset.id)); return}
   if(act==="copiar-inv"){ const t=$("#msgInv"); const ok=()=>toast("Mensaje copiado. Pégalo en WhatsApp.");
     try{ navigator.clipboard.writeText(t.value).then(ok,()=>{t.select();document.execCommand("copy");ok()}) }catch(err){ t.select(); try{document.execCommand("copy");ok()}catch(e2){toast("Mantén pulsado el texto para copiarlo.")} } return}
+  if(act==="diseno-profe"){ const id=el.dataset.id, d=el.dataset.diseno;
+    rpc("admin_diseno",{p_codigo:cuenta.codigo,p_id:id,p_diseno:d}).then(()=>{ const p=ui.profes.lista.find(x=>x.id===id); if(p) p.diseno=d||null; abrirHoja(hojaProfe(id)); toast("Diseño cambiado. Lo verá la próxima vez que abra la app.") },
+      ()=>toast("No se ha podido cambiar. Revisa la conexión."));
+    return}
   if(act==="activar-profe"){ const id=el.dataset.id, activo=el.dataset.activo==="1";
     if(!activo && !el.dataset.ok){ el.dataset.ok="1"; el.textContent="¿Seguro? Pulsa otra vez"; return }
     el.disabled=true;
@@ -676,7 +695,7 @@ async function entrarConCodigo(form){
   try{
     const p=await rpc("entrar",{p_codigo:codigo});
     if(!p){ err.textContent="Ese código no existe o está desactivado. Revísalo o pide uno nuevo."; btn.disabled=false; btn.textContent="Entrar"; return }
-    cuenta={codigo,nombre:p.nombre,es_admin:p.es_admin}; guardarCuenta(); loadLocal();
+    cuenta={codigo,nombre:p.nombre,es_admin:p.es_admin,diseno:p.diseno||null}; guardarCuenta(); loadLocal();
     ui.tab="lista"; ui.grupo=null; render();
     const n=await sincronizar();
     const subidos = n===0 ? traerDatosAntiguos() : 0;

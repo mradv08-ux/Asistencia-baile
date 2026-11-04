@@ -161,3 +161,19 @@ grant execute on function public.entrar(text), public.cargar(text), public.guard
 
 -- El primer código de administrador se crea a mano desde el editor SQL:
 -- insert into public.profes (nombre, codigo, es_admin) values ('The Wild Side', privado.nuevo_codigo(), true);
+
+/* ---------- Diseño exclusivo por profe ---------- */
+-- null = estándar; 'mariposa' = su nombre arriba y mariposa gigante de fondo.
+-- entrar() y cargar() devuelven también 'diseno' en el perfil, y admin_profes() la columna diseno.
+alter table public.profes add column if not exists diseno text check (diseno in ('mariposa'));
+
+create or replace function public.admin_diseno(p_codigo text, p_id uuid, p_diseno text)
+returns void language plpgsql volatile security definer set search_path = '' as $$
+declare a public.profes;
+begin
+  a := privado.profe_por_codigo(p_codigo);
+  if a.id is null or not a.es_admin then raise exception 'solo_admin'; end if;
+  update public.profes set diseno = nullif(p_diseno, '') where id = p_id;
+end $$;
+revoke all on function public.admin_diseno(text, uuid, text) from public;
+grant execute on function public.admin_diseno(text, uuid, text) to anon, authenticated;
