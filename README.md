@@ -22,5 +22,4 @@ Pestaña **Profes** › toca a la profe › **Desactivar**. Sus datos se quedan 
 - `supabase/esquema.sql`: tablas y funciones de la base de datos.
 
 ## Pendiente para más adelante
-- Poner un email de contacto de The Wild Side en `legal.html`.
 - Plan gratuito de Supabase: el proyecto se pausa si pasa una semana sin que nadie use la app; se reactiva desde supabase.com.
