@@ -18,7 +18,7 @@ create table if not exists public.profes (
 
 create table if not exists public.registros (
   profe_id uuid not null references public.profes(id) on delete cascade,
-  coleccion text not null check (coleccion in ('grupos','alumnos','asistencia')),
+  coleccion text not null check (coleccion in ('grupos','alumnos','asistencia','ajustes')),
   id text not null check (char_length(id) between 1 and 80),
   datos jsonb not null,
   actualizado timestamptz not null default now(),
