@@ -213,6 +213,16 @@ nav.tabs button[aria-current="page"]{color:var(--accent-strong)}
 /* ---------- Colores ---------- */
 .btn-tema{position:absolute;top:14px;right:0;width:42px;height:42px;border-radius:50%;border:0;background:var(--surface);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--accent-strong);padding:0}
 .btn-tema svg{width:22px;height:22px}
+.disenos{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 18px}
+.disenos button{border:1px solid var(--line);background:var(--bg);border-radius:16px;padding:8px 8px 10px;display:flex;flex-direction:column;gap:8px;align-items:stretch;font-weight:600;font-size:14px;color:var(--ink)}
+.disenos button[aria-pressed="true"]{border-color:var(--accent-strong);box-shadow:0 0 0 2px var(--accent-strong);background:var(--accent-soft)}
+.mini{position:relative;height:96px;border-radius:10px;background:var(--bg);overflow:hidden;text-align:left;padding:8px 10px;box-shadow:inset 0 0 0 1px var(--line)}
+.mini b{position:relative;display:block;font-family:var(--f-display);font-weight:400;font-size:24px;line-height:1;color:var(--ink)}
+.mini i{position:relative;display:block;height:9px;border-radius:4px;background:var(--surface);margin-top:7px;box-shadow:var(--shadow)}
+.mini i + i{width:80%}
+.mini svg{position:absolute;width:120px;height:120px;right:-34px;top:8px;transform:rotate(-16deg);color:var(--accent);opacity:.35}
+.mini svg .w2{color:var(--accent-strong)}
+.exclusivo{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-strong);background:var(--accent-soft);border-radius:999px;padding:3px 9px;margin-bottom:8px}
 .temas{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:4px 0 8px}
 .temas button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 2px;border-radius:14px;font-size:12px;font-weight:600;color:var(--muted)}
 .temas .muestra{width:46px;height:46px;border-radius:50%;box-shadow:inset 0 0 0 1px rgb(0 0 0 / .06)}
@@ -302,9 +312,15 @@ function aplicarTema(){
   if(metas[0]) metas[0].content=`hsl(${p.h} ${Math.min(100,p.s*60)}% 96%)`;
   if(metas[1]) metas[1].content=`hsl(${p.h} ${Math.min(100,p.s*25)}% 12%)`;
 }
+function mariposaActiva(){ return !!(cuenta&&cuenta.diseno==="mariposa"&&state.ajustes&&state.ajustes.tema&&state.ajustes.tema.mariposa===true) }
 function hojaTemas(){
-  const actual=paletaActual().id;
-  return `<h2>Colores</h2><p class="sub">Elige el color de tu app. El diseño se queda igual y se guarda con tu código.</p>
+  const actual=paletaActual().id, on=mariposaActiva();
+  const exclusivo = cuenta&&cuenta.diseno==="mariposa" ? `<span class="exclusivo">Solo para ti</span>
+  <div class="disenos" role="group" aria-label="Diseño">
+    <button data-mariposa="0" aria-pressed="${!on}"><span class="mini"><b>Asistencia</b><i></i><i></i></span>Normal</button>
+    <button data-mariposa="1" aria-pressed="${on}"><span class="mini"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#mariposa"/></svg><b>${esc(cuenta.nombre)}</b><i></i><i></i></span>Tu nombre y mariposa</button>
+  </div>` : "";
+  return `<h2>${exclusivo?"Diseño y colores":"Colores"}</h2><p class="sub">${exclusivo?"Elige cómo quieres ver tu app. Se guarda con tu código.":"Elige el color de tu app. El diseño se queda igual y se guarda con tu código."}</p>${exclusivo}
   <div class="temas" role="group" aria-label="Colores">${PALETAS.map(p=>{const sat=k=>Math.min(100,p.s*k);
     return `<button data-tema="${p.id}" aria-pressed="${p.id===actual}"><span class="muestra" style="background:linear-gradient(135deg,hsl(${p.h} ${sat(35)}% 47%) 0 45%,hsl(${p.h} ${sat(50)}% 66%) 45% 72%,hsl(${p.h} ${sat(60)}% 93%) 72%)"></span>${p.nombre}</button>`}).join("")}</div>`;
 }
@@ -552,7 +568,7 @@ function hojaProfe(id){
   <button class="${p.activo?"danger":"ghost"}" data-act="activar-profe" data-id="${esc(p.id)}" data-activo="${p.activo?"0":"1"}">${p.activo?"Desactivar":"Volver a activar"}</button></div>
   <p class="sub" style="margin-top:12px">Al desactivarla deja de poder entrar, pero sus datos se guardan por si la vuelves a activar.</p>
   <div class="section-title">Diseño</div>
-  <div class="seg" role="group" aria-label="Diseño" style="display:flex">${[["","Estándar"],["mariposa","Su nombre y mariposa"]].map(([v,t])=>`<button style="flex:1" data-act="diseno-profe" data-id="${esc(p.id)}" data-diseno="${v}" aria-pressed="${(p.diseno||"")===v}" class="${(p.diseno||"")===v?"s-si":""}">${t}</button>`).join("")}</div>`;
+  <div class="seg" role="group" aria-label="Diseño" style="display:flex">${[["","Solo colores"],["mariposa","Puede usar la mariposa"]].map(([v,t])=>`<button style="flex:1" data-act="diseno-profe" data-id="${esc(p.id)}" data-diseno="${v}" aria-pressed="${(p.diseno||"")===v}" class="${(p.diseno||"")===v?"s-si":""}">${t}</button>`).join("")}</div>`;
 }
 function hojaNuevaProfe(){
   return `<h2>Nueva profe</h2><p class="sub">Se crea un código solo para ella. Lo que haga en la app solo lo verá ella.</p>
@@ -601,7 +617,7 @@ function render(){
   if(!ready) return;
   const main=$("#main");
   aplicarTema(); $(".btn-tema").hidden=!cuenta;
-  const mariposa=!!(cuenta&&cuenta.diseno==="mariposa");
+  const mariposa=mariposaActiva();
   $(".fondo-mariposa").hidden=!mariposa;
   $("#titulo").textContent=mariposa?cuenta.nombre:"Asistencia";
   $("#lema").textContent=mariposa?"asistencia · baile urbano":"de baile urbano";
@@ -628,7 +644,10 @@ document.addEventListener("click",e=>{
     if(nueva==="si"){const av=document.querySelector(`.row[data-id="${id}"] .avatar`); if(av){av.classList.add("pirueta"); av.querySelector(".flutter").classList.add("go")}}
     return}
   const tema=e.target.closest("[data-tema]");
-  if(tema){ guardar("ajustes","tema",{id:tema.dataset.tema}); document.querySelectorAll("[data-tema]").forEach(b=>b.setAttribute("aria-pressed",b===tema)); return}
+  if(tema){ guardar("ajustes","tema",{...(state.ajustes.tema||{}),id:tema.dataset.tema}); document.querySelectorAll("[data-tema]").forEach(b=>b.setAttribute("aria-pressed",b===tema)); return}
+  const mar=e.target.closest("[data-mariposa]");
+  if(mar){ const on=mar.dataset.mariposa==="1"; guardar("ajustes","tema",{...(state.ajustes.tema||{}),mariposa:on});
+    document.querySelectorAll("[data-mariposa]").forEach(b=>b.setAttribute("aria-pressed",b===mar)); return}
   const dia=e.target.closest(".days [data-dia]"); if(dia){dia.setAttribute("aria-pressed",dia.getAttribute("aria-pressed")!=="true");return}
   const el=e.target.closest("[data-act]"); if(!el) return;
   const act=el.dataset.act;
@@ -657,7 +676,7 @@ document.addEventListener("click",e=>{
   if(act==="copiar-inv"){ const t=$("#msgInv"); const ok=()=>toast("Mensaje copiado. Pégalo en WhatsApp.");
     try{ navigator.clipboard.writeText(t.value).then(ok,()=>{t.select();document.execCommand("copy");ok()}) }catch(err){ t.select(); try{document.execCommand("copy");ok()}catch(e2){toast("Mantén pulsado el texto para copiarlo.")} } return}
   if(act==="diseno-profe"){ const id=el.dataset.id, d=el.dataset.diseno;
-    rpc("admin_diseno",{p_codigo:cuenta.codigo,p_id:id,p_diseno:d}).then(()=>{ const p=ui.profes.lista.find(x=>x.id===id); if(p) p.diseno=d||null; abrirHoja(hojaProfe(id)); toast("Diseño cambiado. Lo verá la próxima vez que abra la app.") },
+    rpc("admin_diseno",{p_codigo:cuenta.codigo,p_id:id,p_diseno:d}).then(()=>{ const p=ui.profes.lista.find(x=>x.id===id); if(p) p.diseno=d||null; abrirHoja(hojaProfe(id)); toast(d?"Ya puede activar la mariposa desde su botón de colores.":"Ya no tiene la mariposa.") },
       ()=>toast("No se ha podido cambiar. Revisa la conexión."));
     return}
   if(act==="activar-profe"){ const id=el.dataset.id, activo=el.dataset.activo==="1";
