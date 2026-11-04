@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Asistencia de Baile Urbano</title>
-<meta name="description" content="Pasa lista en tus clases de baile urbano y mira la asistencia de cada niño.">
+<meta name="description" content="Pasa lista en tus clases de baile urbano y mira la asistencia de cada niño. Una app de The Wild Side.">
+<meta name="author" content="The Wild Side">
 <meta name="theme-color" content="#F6F1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1D1726" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
@@ -43,18 +44,19 @@ img{max-width:100%}
   --shadow:0 1px 2px rgba(80,55,120,.06),0 6px 18px rgba(80,55,120,.07);
   --f-display:"Bebas Neue","Impact","Arial Narrow",sans-serif;
   --f-tag:"Permanent Marker","Marker Felt","Comic Sans MS",cursive;
+  --tws:#08802a;
   --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#1D1726;--surface:#28202F;--cream:#3A3226;--ink:#F0E8F8;--muted:#A99DBA;--line:#3A3048;
   --accent:#B79DEA;--accent-strong:#D2BDF7;--accent-soft:#352A47;--on-accent:#1D1726;
   --si:#B79DEA;--tarde:#E1B66E;--tarde-soft:#3D3122;--no:#E499B0;--no-soft:#432631;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);color-scheme:dark}}
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);--tws:#00c837;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#1D1726;--surface:#28202F;--cream:#3A3226;--ink:#F0E8F8;--muted:#A99DBA;--line:#3A3048;
   --accent:#B79DEA;--accent-strong:#D2BDF7;--accent-soft:#352A47;--on-accent:#1D1726;
   --si:#B79DEA;--tarde:#E1B66E;--tarde-soft:#3D3122;--no:#E499B0;--no-soft:#432631;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);color-scheme:dark}
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);--tws:#00c837;color-scheme:dark}
 
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -194,10 +196,14 @@ nav.tabs button[aria-current="page"]{color:var(--accent-strong)}
 .tag{font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
 .tag.si{background:var(--accent-soft);color:var(--si)}.tag.tarde{background:var(--tarde-soft);color:var(--tarde)}.tag.no{background:var(--no-soft);color:var(--no)}
 
-.backup{background:var(--surface);border-radius:16px;padding:14px;box-shadow:var(--shadow);margin-bottom:90px}
+.backup{background:var(--surface);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
 .backup p{margin:0 0 10px;font-size:14px;color:var(--muted)}
 .backup label.ghost{display:inline-block;cursor:pointer;color:var(--ink)}
 .backup .meta{margin:10px 0 0;font-size:13px}
+/* ---------- Firma de The Wild Side ---------- */
+.firma{display:flex;justify-content:center;margin:28px 0 56px}
+.firma span{display:inline-flex;align-items:baseline;gap:7px;padding:7px 14px;border:1.5px dashed var(--tws);border-radius:10px;transform:rotate(-2deg);color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.firma b{font-family:var(--f-tag);font-weight:400;font-size:17px;letter-spacing:0;text-transform:none;color:var(--tws)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;z-index:30;max-width:calc(100% - 32px)}
 .loading{text-align:center;padding:60px 0;color:var(--muted)}
 .loading svg{width:56px;height:56px;color:var(--accent);animation:bob 1.4s ease-in-out infinite}
@@ -228,6 +234,7 @@ nav.tabs button[aria-current="page"]{color:var(--accent-strong)}
     <svg class="cinta" viewBox="0 0 250 30" preserveAspectRatio="none" aria-hidden="true"><path class="trazo" d="M3 8 C60 4, 140 12, 247 5" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><rect class="gota" x="58" y="8" width="3" height="14" rx="1.5" fill="currentColor"/><rect class="gota" x="132" y="9" width="3" height="20" rx="1.5" fill="currentColor"/><rect class="gota" x="201" y="7" width="3" height="10" rx="1.5" fill="currentColor"/></svg>
   </header>
   <main id="main"><div class="loading"><svg aria-hidden="true"><use href="#mariposa"/></svg><p>Cargando tus clases…</p></div></main>
+  <footer class="firma"><span>by <b>The Wild Side</b></span></footer>
 </div>
 
 <nav class="tabs" aria-label="Secciones"><div class="in">

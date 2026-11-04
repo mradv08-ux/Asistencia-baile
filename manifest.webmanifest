@@ -1,7 +1,7 @@
 {
   "name": "Asistencia de Baile Urbano",
   "short_name": "Asistencia",
-  "description": "Pasa lista en tus clases de baile urbano y mira la asistencia de cada niño.",
+  "description": "Pasa lista en tus clases de baile urbano y mira la asistencia de cada niño. By The Wild Side.",
   "lang": "es",
   "start_url": "./",
   "scope": "./",
