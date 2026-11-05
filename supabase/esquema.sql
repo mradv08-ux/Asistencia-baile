@@ -180,4 +180,4 @@ grant execute on function public.admin_diseno(text, uuid, text) to anon, authent
 
 -- Diseño exclusivo 'clara' (Claramente Dance)
 alter table public.profes drop constraint if exists profes_diseno_check;
-alter table public.profes add constraint profes_diseno_check check (diseno in ('mariposa','clara'));
+alter table public.profes add constraint profes_diseno_check check (diseno in ('mariposa','clara','musa'));
