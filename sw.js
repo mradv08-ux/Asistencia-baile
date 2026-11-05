@@ -1,5 +1,5 @@
 // Sube VERSION en cada publicación para que los móviles cojan la versión nueva.
-const VERSION = "asistencia-v11";
+const VERSION = "asistencia-v12";
 const ESQUELETO = [
   "./",
   "./index.html",
