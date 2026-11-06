@@ -606,14 +606,18 @@ function vistaAlumnos(){
   if(ui.filtro!=="todos"&&!state.grupos[ui.filtro]) ui.filtro="todos";
   let al=alumnosDe(ui.filtro); const q=ui.q.trim().toLowerCase(); if(q) al=al.filter(a=>a.nombre.toLowerCase().includes(q));
   let html=`<input class="search" id="buscar" type="search" placeholder="Buscar en la crew" value="${esc(ui.q)}" autocomplete="off">`+chipsGrupos(true);
-  if(!al.length) return html+(q?`<p class="empty">Nadie se llama así.</p>`:vacio("Crew vacía","Pulsa «Añadir» para apuntar al primero.",null))+fab("Añadir","nuevo-alumno");
+  if(!al.length){
+    if(q) return html+`<p class="empty">Nadie se llama así.</p>`+fab("Añadir a la crew","nuevo-alumno");
+    const g=ui.filtro!=="todos"&&state.grupos[ui.filtro];
+    return html+vacio("Crew vacía", g?`Todavía no hay nadie en ${esc(g.nombre)}. Apunta al primero con este botón.`:"Todavía no hay nadie apuntado. Empieza con este botón.","+ Añadir a la crew","nuevo-alumno");
+  }
   html+=`<ul class="list">`;
   for(const a of al){const r=resumenAlumno(a); const g=state.grupos[a.grupoId];
     const dots=r.hist.slice(0,6).reverse().map(h=>`<span class="dot ${h.m}"></span>`).join("");
     html+=`<li class="row"><button class="rowbtn" data-act="ver-alumno" data-id="${a.id}"><div class="avatar">${esc(iniciales(a.nombre))}</div>
     <div class="who"><div class="name">${esc(a.nombre)}</div><div class="meta">${g?esc(g.nombre):"Sin grupo"} · ${r.total} ${r.total===1?"clase":"clases"}</div></div>
     <div class="dots" aria-hidden="true">${dots}</div><div class="pct" aria-label="Asistencia">${r.pct===null?"—":r.pct+"%"}</div></button></li>`}
-  return html+"</ul>"+fab("Añadir","nuevo-alumno");
+  return html+"</ul>"+fab("Añadir a la crew","nuevo-alumno");
 }
 
 function vistaGrupos(){
